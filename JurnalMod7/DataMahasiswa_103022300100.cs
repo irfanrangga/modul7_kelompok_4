@@ -32,12 +32,22 @@ namespace JurnalMod7
 
     public class JsonMahasiswa
     {
-        public static T ReadJson<T>(string filePath)
+        public static void ReadJson(string filePath)
         {
             string jsonFile = File.ReadAllText(filePath);
-            T result = JsonSerializer.Deserialize<T>(jsonFile);
+            DataMahasiswa_103022300100 mahasiswa = JsonSerializer.Deserialize<DataMahasiswa_103022300100>(jsonFile);
 
-            return result;
+            Console.WriteLine($"Nama: {mahasiswa.firstName} {mahasiswa.lastName}");
+            Console.WriteLine($"Gender: {mahasiswa.gender}");
+            Console.WriteLine($"Age: {mahasiswa.age}");
+            Console.WriteLine($"Address: {mahasiswa.address.streetAddress} {mahasiswa.address.city} {mahasiswa.address.state}");
+            Console.WriteLine($"Courses: ");
+            int i = 1;
+            foreach (var matkul in mahasiswa.courses)
+            {
+                Console.WriteLine($"MK {i} {matkul.code} - {matkul.name}");
+                i++;
+            }
         }
     }
 
